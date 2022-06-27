@@ -1,0 +1,161 @@
+{
+   "version": "2.0.0",
+   "tasks":
+   [
+/* ====================================== Build Commands ====================================== */
+      {
+         "label": "Make Build",
+         "type": "shell",
+         "command": "make -s -j 4 all",
+         "options": {
+            "cwd": "${workspaceRoot}",
+            "shell": {
+               "executable": "cmd.exe",
+               "args": ["/C"]
+            }
+         }, 
+         "group": {
+            "kind": "build",
+            "isDefault": true
+         },
+         "problemMatcher": ["$gcc"]
+      },
+      {
+         "label": "Make Clean",
+         "type": "shell",
+         "command": "make -s clean",
+         "options": {
+            "cwd": "${workspaceRoot}",
+            "shell": {
+               "executable": "cmd.exe",
+               "args": ["/C"]
+            }
+         },
+         "group": {
+            "kind": "build",
+            "isDefault": true
+         },
+         "problemMatcher": ["$gcc"]
+      },
+/* ====================================== Tools Commands ====================================== */
+{
+   "label": "Tools - Bin to Header",
+   "type": "shell",
+   "command": "srec_cat.exe",
+   "args": [
+      "build/Firmware.bin",
+      "-Binary",
+      "-o",
+      "firmware.c",
+      "-C-Array",
+      "firmware_image"//,
+      //"-INClude"
+   ],
+   "options": {
+      "cwd": "${workspaceRoot}",
+      "shell": {
+         "executable": "cmd.exe",
+         "args": ["/C"]
+      }
+   },
+   "problemMatcher": []
+},
+/* ====================================== JLink Commands ====================================== */
+      {
+         "label": "JLink - Write to Flash",
+         "type": "shell",
+         "command": "JLink.exe",
+         "args": [
+            //"-ip",
+            //"213.5.31.5:19020",
+            "-Device",
+            "GD32E103C8",
+            "-If",
+            "SWD",
+            "-Speed",
+            "4000",
+            "JLink/FlashMCU.JLinkScript"
+         ],
+         "options": {
+            "cwd": "${workspaceRoot}",
+            "shell": {
+               "executable": "cmd.exe",
+               "args": ["/C"]
+            }
+         },
+         "problemMatcher": []
+      },
+      {
+         "label": "JLink - Read Flash to File",
+         "type": "shell",
+         "command": "JLink.exe",
+         "args": [
+            //"-ip",
+            //"213.5.31.5:19020",
+            "-Device",
+            "GD32E103C8",
+            "-If",
+            "SWD",
+            "-Speed",
+            "4000",
+            "JLink/ReadMCU.JLinkScript"
+         ],
+         "options": {
+            "cwd": "${workspaceRoot}",
+            "shell": {
+               "executable": "cmd.exe",
+               "args": ["/C"]
+            }
+         },
+         "problemMatcher": []
+      },
+      {
+         "label": "JLink - Erase Flash",
+         "type": "shell",
+         "command": "JLink.exe",
+         "args": [
+            //"-ip",
+            //"213.5.31.5:19020",
+            "-Device",
+            "GD32E103C8",
+            "-If",
+            "SWD",
+            "-Speed",
+            "4000",
+            "JLink/EraseMCU.JLinkScript"
+         ],
+         "options": {
+            "cwd": "${workspaceRoot}",
+            "shell": {
+               "executable": "cmd.exe",
+               "args": ["/C"]
+            }
+         },
+         "problemMatcher": []
+      },
+      {
+         "label": "JLink - Reset MCU",
+         "type": "shell",
+         "command": "JLink.exe",
+         "args": [
+            //"-ip",
+            //"213.5.31.5:19020",
+            "-Device",
+            "GD32E103C8",
+            "-If",
+            "SWD",
+            "-Speed",
+            "4000",
+            "JLink/ResetMCU.JLinkScript"
+         ],
+         "options": {
+            "cwd": "${workspaceRoot}",
+            "shell": {
+               "executable": "cmd.exe",
+               "args": ["/C"]
+            }
+         },
+         "problemMatcher": []
+      },
+   ]
+}
